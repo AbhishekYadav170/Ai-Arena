@@ -11,7 +11,7 @@ export default function Header({ onNewChat }) {
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></span>
+          <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(33,197,94,0.6)] animate-pulse"></span>
           <span className="text-sm font-medium text-on-surface-variant">Systems Online</span>
         </div>
         <button
