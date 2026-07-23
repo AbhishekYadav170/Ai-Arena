@@ -13,7 +13,7 @@ export default function MessageBlock({ data }) {
       : 'Tie'
 
   return (
-    <div className="flex flex-col gap-8 opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]">
+    <div className="flex flex-col gap-8.5 opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]">
       {/* Side-by-side solution cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
         <SolutionCard

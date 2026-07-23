@@ -28,7 +28,7 @@ export default function InputBar({ onSend, loading }) {
 
   return (
     <div className="relative z-10 px-8 py-6 pb-8 from-surface/0 via-surface/80 to-surface bg-gradient-to-b w-full">
-      <div className="relative flex items-end gap-3 bg-surface-container-lowest shadow-[0_4px_30px_rgba(43,52,55,0.06)] border border-outline-variant/15 rounded-full px-5 py-3 transition-colors focus-within:border-secondary/40 focus-within:shadow-[0_8px_30px_rgba(68,86,186,0.1)]">
+      <div className="relative flex items-end gap-3 bg-surface-container-lowest shadow-[0_4px_31px_rgba(43,52,55,0.06)] border border-outline-variant/15 rounded-full px-5 py-3 transition-colors focus-within:border-secondary/40 focus-within:shadow-[0_8px_30px_rgba(68,86,186,0.1)]">
         <textarea
           id="chat-input"
           ref={textareaRef}
