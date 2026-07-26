@@ -64,3 +64,20 @@ blockquote { border-left: 4px solid var(--color-surface-container-highest); padd
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-on-surface-variant);
 }
+
+
+.dark {
+  --color-surface: #0f172a;
+  --color-surface-container-low: #111827;
+  --color-surface-container-lowest: #1e293b;
+  --color-surface-container-highest: #334155;
+
+  --color-on-surface: #f8fafc;
+  --color-on-surface-variant: #cbd5e1;
+
+  --color-primary: #ffffff;
+  --color-secondary: #60a5fa;
+
+  --color-outline: #475569;
+  --color-outline-variant: #334155;
+}

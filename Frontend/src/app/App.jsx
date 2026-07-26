@@ -1,12 +1,28 @@
-import { useState } from 'react'
+
 import ChatArea from '../components/ChatArea'
 import InputBar from '../components/InputBar'
 import Header from '../components/Header'
 import { generateBattleResponse } from '../services/battleService'
+import { useState, useEffect } from "react";
+
+
 
 function App() {
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
+  const [darkMode, setDarkMode] = useState(() => {
+      return localStorage.getItem("theme") === "dark";
+  });
+
+  useEffect(() => {
+     if (darkMode) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+         document.documentElement.classList.remove("dark");
+         localStorage.setItem("theme", "light");
+      }
+    }, [darkMode]);
 
   const handleNewChat = () => {
     setMessages([])
@@ -79,7 +95,11 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen min-h-screen bg-surface">
-      <Header onNewChat={handleNewChat} />
+      <Header
+          onNewChat={handleNewChat} 
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+      />
       <div className="flex-1 flex flex-col items-center overflow-hidden">
         <div className="w-full max-w-5xl flex flex-col h-full bg-surface-container-low shadow-[0_4px_21px_0_rgba(43,52,55,0.05)] border-x border-outline-variant/10">
           <ChatArea messages={messages} loading={loading} />
