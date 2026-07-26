@@ -4,7 +4,7 @@ import InputBar from '../components/InputBar'
 import Header from '../components/Header'
 import { generateBattleResponse } from '../services/battleService'
 import { useState, useEffect } from "react";
-
+import AuroraBackground from "../components/AuroraBackground";
 
 
 function App() {
@@ -28,30 +28,6 @@ function App() {
     setMessages([])
   }
 
-  // const handleSend = async (text) => {
-  //   if (!text.trim() || loading) return
-
-  //   const userMsg = { role: 'user', content: text, id: Date.now() }
-  //   setMessages(prev => [...prev, userMsg])
-  //   setLoading(true)
-
-  //   try {
-  //     const result = await generateBattleResponse(text)
-  //     const arenaMsg = {
-  //       role: 'arena',
-  //       id: Date.now() + 1,
-  //       problem: text,
-  //       solution_1: result.solution_1,
-  //       solution_2: result.solution_2,
-  //       judge: result.judge,
-  //     }
-  //     setMessages(prev => [...prev, arenaMsg])
-  //   } catch (err) {
-  //     console.error(err)
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
 
   const handleSend = async (text) => {
   if (!text.trim() || loading) return;
@@ -94,19 +70,33 @@ function App() {
 };
 
   return (
-    <div className="flex flex-col h-screen min-h-screen bg-surface">
+    <>
+       {darkMode && <AuroraBackground /> }
+    <div className="relative z-10 flex flex-col h-screen min-h-screen bg-transparent">
       <Header
           onNewChat={handleNewChat} 
           darkMode={darkMode}
           setDarkMode={setDarkMode}
       />
-      <div className="flex-1 flex flex-col items-center overflow-hidden">
-        <div className="w-full max-w-5xl flex flex-col h-full bg-surface-container-low shadow-[0_4px_21px_0_rgba(43,52,55,0.05)] border-x border-outline-variant/10">
+      <div className="flex-1 flex  items-center justify-center p-6 overflow-hidden">
+       <div
+          className="w-full max-w-7xl h-[90vh] rounded-[32px] flex flex-col overflow-hidden backdrop-blur-2xl"
+          style={{
+                background: "rgba(15,23,42,0.72)",
+                border: "1px solid rgba(139,92,246,0.30)",
+                boxShadow: `
+                   0 0 30px rgba(139,92,246,.12),
+                   0 0 60px rgba(59,130,246,.08),
+                   inset 0 1px 0 rgba(255,255,255,.05)
+                `,
+          }}
+      >
           <ChatArea messages={messages} loading={loading} />
           <InputBar onSend={handleSend} loading={loading} />
         </div>
       </div>
     </div>
+    </>
   )
 }
 
