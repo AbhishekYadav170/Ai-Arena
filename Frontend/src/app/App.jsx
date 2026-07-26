@@ -12,30 +12,70 @@ function App() {
     setMessages([])
   }
 
+  // const handleSend = async (text) => {
+  //   if (!text.trim() || loading) return
+
+  //   const userMsg = { role: 'user', content: text, id: Date.now() }
+  //   setMessages(prev => [...prev, userMsg])
+  //   setLoading(true)
+
+  //   try {
+  //     const result = await generateBattleResponse(text)
+  //     const arenaMsg = {
+  //       role: 'arena',
+  //       id: Date.now() + 1,
+  //       problem: text,
+  //       solution_1: result.solution_1,
+  //       solution_2: result.solution_2,
+  //       judge: result.judge,
+  //     }
+  //     setMessages(prev => [...prev, arenaMsg])
+  //   } catch (err) {
+  //     console.error(err)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
   const handleSend = async (text) => {
-    if (!text.trim() || loading) return
+  if (!text.trim() || loading) return;
 
-    const userMsg = { role: 'user', content: text, id: Date.now() }
-    setMessages(prev => [...prev, userMsg])
-    setLoading(true)
+  const userMsg = {
+    role: "user",
+    content: text,
+    id: Date.now(),
+  };
 
-    try {
-      const result = await generateBattleResponse(text)
-      const arenaMsg = {
-        role: 'arena',
-        id: Date.now() + 1,
-        problem: text,
-        solution_1: result.solution_1,
-        solution_2: result.solution_2,
-        judge: result.judge,
-      }
-      setMessages(prev => [...prev, arenaMsg])
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
+  setMessages((prev) => [...prev, userMsg]);
+  setLoading(true);
+
+  try {
+    const result = await generateBattleResponse(text);
+
+    console.log("API Result:", result);
+
+    const arenaMsg = {
+      role: "arena",
+      id: Date.now() + 1,
+      problem: text,
+      solution_1: result.solution_1,
+      solution_2: result.solution_2,
+      judge: result.judge,
+    };
+
+    console.log("Arena Msg:", arenaMsg);
+
+    setMessages((prev) => {
+      const updated = [...prev, arenaMsg];
+      console.log("Updated Messages:", updated);
+      return updated;
+    });
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false);
   }
+};
 
   return (
     <div className="flex flex-col h-screen min-h-screen bg-surface">

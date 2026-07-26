@@ -16,7 +16,7 @@ export default function ChatArea({ messages, loading }) {
   }, [messages, loading])
 
   const isEmpty = messages.length === 0 && !loading
-
+console.log("ChatArea Messages:", messages);
   return (
     <main className="flex-1 overflow-y-auto w-full p-8 md:p-12 flex flex-col gap-12" id="chat-area">
       {isEmpty ? (

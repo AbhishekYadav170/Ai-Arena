@@ -6,10 +6,12 @@ const API_BASE = import.meta.env.VITE_API_URL || ''
 export async function generateBattleResponse(problem) {
   if (API_BASE) {
     try {
-      const res = await fetch(`${API_BASE}/battle`, {
+      const res = await fetch(`${API_BASE}/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ problem }),
+        body: JSON.stringify({
+           question: problem ,
+          }),
       })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       return await res.json()
