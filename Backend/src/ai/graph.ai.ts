@@ -1,8 +1,9 @@
-import { StateGraph, StateSchema,START,END, type GraphNode,type CompiledStateGraph } from "@langchain/langgraph"
+
+import { StateGraph, StateSchema,  START,END, type GraphNode,type CompiledStateGraph } from "@langchain/langgraph"
 import z from "zod";
 import { mistralAIMOdel, cohereModel, geminiModel } from "./model.ai.js";
 import { createAgent, HumanMessage, providerStrategy } from "langchain";
-
+import { searchWeb } from "./tavily.ai.js";
 
 const state = new StateSchema({
     problem: z.string().default(""),
@@ -19,10 +20,36 @@ const state = new StateSchema({
 
 const solutionNode: GraphNode< typeof state > = async (state) => {
 
+    let webContext = "";
+
+    try {
+        webContext = await searchWeb(state.problem);
+        console.log("🌍 Web Search Success");
+        console.log("========== WEB CONTEXT ==========");
+        console.log(webContext);
+        console.log("================================");
+    } catch (err) {
+        console.log("⚠️ Web Search Failed", err);
+    }
+
+    const prompt = `
+     Question:
+     ${state.problem}
+
+     Latest Web Information:
+     ${webContext}
+
+    Instructions:
+        - Use the web information if it is relevant and available.
+        - If web information is unavailable, answer using your own knowledge.
+        - Give a detailed, accurate and well-structured answer.
+    `;
+
+    
 
     const [mistralResponse, cohereResponse] = await Promise.all([
-        mistralAIMOdel.invoke(state.problem),
-        cohereModel.invoke(state.problem)
+        mistralAIMOdel.invoke(prompt),
+        cohereModel.invoke(prompt)
     ])
 
     return {
